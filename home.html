@@ -68,7 +68,6 @@
     .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; align-items:center }
     .card{ background:#0f162e; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:1.2rem; box-shadow:0 8px 24px rgba(0,0,0,.25) }
     .icon{ width:42px; height:42px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(180deg, rgba(34,211,238,.18), rgba(37,99,235,.18)); margin-bottom:.5rem; font-weight:900 }
-    .avatar{ width:42px; height:42px; border-radius:50%; background:linear-gradient(180deg, rgba(34,211,238,.18), rgba(37,99,235,.18)) }
     .list{ display:grid; gap:.5rem; padding-left: 1rem }
     .list li{ margin-left:.4rem }
     .pill{ padding:.35rem .6rem; background:rgba(255,255,255,.06); border-radius:999px; font-weight:800; font-size:.8rem }
@@ -238,13 +237,8 @@
         <div style="margin-top:1rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem">
           <!-- Escolas -->
           <div class="card">
-            <div style="display:flex; gap:.7rem; align-items:center;">
-              <div class="avatar" aria-hidden="true"></div>
-              <div>
-                <b>Escolas</b>
-                <small class="muted">Secretaria & Cobrança</small>
-              </div>
-            </div>
+            <b>Escolas</b>
+            <p class="muted">Secretaria & Cobrança</p>
             <p style="margin:.6rem 0 0;">
               Secretaria 24/7 com triagem de interessados, rematrícula automática e cobrança com PIX; régua por faixas e relatórios. Resultado: <b>+31%</b> de recuperação em 60 dias.
             </p>
@@ -252,13 +246,8 @@
 
           <!-- Comércios -->
           <div class="card">
-            <div style="display:flex; gap:.7rem; align-items:center;">
-              <div class="avatar" aria-hidden="true"></div>
-              <div>
-                <b>Comércios</b>
-                <small class="muted">Leads & Vendas</small>
-              </div>
-            </div>
+            <b>Comércios</b>
+            <p class="muted">Leads & Vendas</p>
             <p style="margin:.6rem 0 0;">
               Catálogo e ofertas dinâmicas no WhatsApp, qualificação e agendamento automático; recuperação de carrinhos e follow-up. Conversões semanais: <b>+22%</b>.
             </p>
@@ -266,13 +255,8 @@
 
           <!-- Serviços -->
           <div class="card">
-            <div style="display:flex; gap:.7rem; align-items:center;">
-              <div class="avatar" aria-hidden="true"></div>
-              <div>
-                <b>Serviços</b>
-                <small class="muted">Suporte & FAQ</small>
-              </div>
-            </div>
+            <b>Serviços</b>
+            <p class="muted">Suporte & FAQ</p>
             <p style="margin:.6rem 0 0;">
               Redução de <b>45%</b> em tickets repetitivos com base de conhecimento.
             </p>
@@ -280,13 +264,8 @@
 
           <!-- Clínicas & Saúde -->
           <div class="card">
-            <div style="display:flex; gap:.7rem; align-items:center;">
-              <div class="avatar" aria-hidden="true"></div>
-              <div>
-                <b>Clínicas & Saúde</b>
-                <small class="muted">Agendamentos & Lembretes</small>
-              </div>
-            </div>
+            <b>Clínicas & Saúde</b>
+            <p class="muted">Agendamentos & Lembretes</p>
             <p style="margin:.6rem 0 0;">
               Pré-triagem por IA, confirmação automática e lembretes multicanal; pós-consulta com NPS. Resultado: redução de <b>29%</b> no no-show.
             </p>
