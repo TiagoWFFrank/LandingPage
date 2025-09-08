@@ -387,13 +387,13 @@
               <option>Instagram Direct</option>
             </select>
           </div>
-          <div class="field" style="margin-top:.6rem;">
-            <label for="plan-funcoes">Funções do WhatsApp</label>
-            <select class="select" id="plan-funcoes" name="funcoes" multiple>
-              <option value="mensagens">Mensagens de texto — leitura e resposta</option>
-              <option value="imagens">Imagens enviadas — análise e resposta</option>
-              <option value="audios">Áudios — transcrição e resposta</option>
-            </select>
+          <div class="field" id="plan-funcoes-field" style="margin-top:.6rem;">
+            <label>Funções do WhatsApp</label>
+            <div class="list" style="margin-top:.4rem;">
+              <label><input type="checkbox" name="funcoes" value="mensagens"> Mensagens de texto — leitura e resposta</label>
+              <label><input type="checkbox" name="funcoes" value="imagens"> Imagens enviadas — análise e resposta</label>
+              <label><input type="checkbox" name="funcoes" value="audios"> Áudios — transcrição e resposta</label>
+            </div>
           </div>
           <div style="margin-top:1rem;">
             <button class="btn" type="submit">Enviar</button>
@@ -462,6 +462,8 @@
     const planBtn = document.getElementById('montar-plano-btn');
     const planClose = document.getElementById('close-plan-modal');
     const planForm = document.getElementById('plan-form');
+    const plataformaSelect = document.getElementById('plan-plataforma');
+    const funcoesField = document.getElementById('plan-funcoes-field');
     if(planBtn && planModal && planClose && planForm){
       planBtn.addEventListener('click', () => { planModal.style.display = 'flex'; });
       planClose.addEventListener('click', () => { planModal.style.display = 'none'; });
@@ -472,6 +474,13 @@
         status.textContent = 'Plano registrado localmente. Conecte seu endpoint para receber este formulário.';
         status.style.color = '#a7f3d0';
       });
+      if(plataformaSelect && funcoesField){
+        const toggleFuncoes = () => {
+          funcoesField.style.display = plataformaSelect.value === 'WhatsApp' ? 'block' : 'none';
+        };
+        plataformaSelect.addEventListener('change', toggleFuncoes);
+        toggleFuncoes();
+      }
     }
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
