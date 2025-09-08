@@ -45,7 +45,7 @@
     .chat-item{display:grid;grid-template-columns:48px 1fr auto;gap:10px;padding:10px 14px;cursor:pointer;border-bottom:1px solid #1a262c}
     .chat-item:hover{background:#182229}
     .chat-item.active{background:#102027}
-    .avatar{width:48px;height:48px;border-radius:50%;background:#0e5c47;display:grid;place-items:center;font-weight:700;color:#c9f7e6}
+    .avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;display:block}
     .title{display:flex;align-items:center;gap:6px}
     .name{font-weight:600}
     .preview{color:var(--text-200);white-space:normal;overflow-wrap:break-word}
@@ -105,7 +105,7 @@
       </div>
       <div class="chats" id="chatList">
         <div class="chat-item active" data-chat="impulsocore">
-          <div class="avatar" aria-hidden="true">IC</div>
+          <img class="avatar" aria-hidden="true" src="https://images.openai.com/blob/72fa8ecd-3cd2-4ee7-8e90-0d3ba93926e0/Impulso%20Core_1024x1024_59.png" alt="ImpulsoCore logo" />
           <div>
             <div class="title"><span class="name">ImpulsoCore</span></div>
             <div class="preview">Atendente de IA: Olá! Posso te ajudar com automações e cobrança inteligente.</div>
@@ -117,7 +117,7 @@
 
     <main class="chat" aria-label="Área de conversa">
       <header class="chat__header">
-        <div class="avatar" aria-hidden="true">IC</div>
+        <img class="avatar" aria-hidden="true" src="https://images.openai.com/blob/72fa8ecd-3cd2-4ee7-8e90-0d3ba93926e0/Impulso%20Core_1024x1024_59.png" alt="ImpulsoCore logo" />
         <div class="chat__contact">
           <div class="chat__name">ImpulsoCore</div>
           <div class="chat__status" id="status">online</div>
