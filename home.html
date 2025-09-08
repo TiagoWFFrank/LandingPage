@@ -81,6 +81,11 @@
     .input, .select, textarea{ border:1px solid #d1d5db; border-radius:.6rem; padding:.75rem .9rem; font: inherit; width:100%; }
     .input:focus, .select:focus, textarea:focus{ outline: 3px solid var(--ring); border-color: var(--brand); }
     .form-row{ display:grid; grid-template-columns: 1fr 1fr; gap:.8rem; }
+    /* Modal */
+    .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; z-index:50; }
+    .modal{ width:min(90%,500px); position:relative; }
+    .modal-close{ position:absolute; top:.6rem; right:.6rem; background:transparent; border:0; font-size:1.2rem; cursor:pointer; color: var(--muted); }
+    .modal-close:hover{ color: var(--ink); }
     /* Responsive */
     @media (max-width: 1024px){
       .hero-grid{ grid-template-columns: 1fr; }
@@ -296,11 +301,11 @@
               <li>Ambiente dedicado</li>
               <li>Suporte prioritário</li>
             </ul>
-            <a class="btn" href="#contato">Falar com vendas</a>
+              <button class="btn" id="montar-plano-btn" type="button">Monte seu plano</button>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
     <section id="contato" class="cta">
       <div class="container">
@@ -349,11 +354,28 @@
       </div>
     </section>
 
-  </main>
+    </main>
 
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
+    <div id="plan-modal" class="modal-overlay" role="dialog" aria-modal="true">
+      <div class="modal card">
+        <button class="modal-close" aria-label="Fechar" id="close-plan-modal">&times;</button>
+        <h3>Monte seu plano</h3>
+        <form id="plan-form">
+          <div class="field">
+            <label for="plan-agentes">Quantidade de agentes solicitados</label>
+            <input class="input" id="plan-agentes" name="agentes" type="number" min="1" required placeholder="0">
+          </div>
+          <div style="margin-top:1rem;">
+            <button class="btn" type="submit">Enviar</button>
+          </div>
+          <p id="plan-status" class="small" style="margin-top:.6rem;"></p>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
         <div>
           <div class="brand" style="margin-bottom:.5rem;">
             <div class="brand-logo" aria-hidden="true"></div>
@@ -405,6 +427,21 @@
       const status = document.getElementById('form-status');
       status.textContent = 'Dados registrados localmente. Conecte seu endpoint para receber este formulário.';
       status.style.color = '#a7f3d0';
+    }
+    const planModal = document.getElementById('plan-modal');
+    const planBtn = document.getElementById('montar-plano-btn');
+    const planClose = document.getElementById('close-plan-modal');
+    const planForm = document.getElementById('plan-form');
+    if(planBtn && planModal && planClose && planForm){
+      planBtn.addEventListener('click', () => { planModal.style.display = 'flex'; });
+      planClose.addEventListener('click', () => { planModal.style.display = 'none'; });
+      planModal.addEventListener('click', e => { if(e.target === planModal) planModal.style.display = 'none'; });
+      planForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        const status = document.getElementById('plan-status');
+        status.textContent = 'Plano registrado localmente. Conecte seu endpoint para receber este formulário.';
+        status.style.color = '#a7f3d0';
+      });
     }
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
