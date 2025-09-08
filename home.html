@@ -68,6 +68,7 @@
     .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; align-items:center }
     .card{ background:#0f162e; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:1.2rem; box-shadow:0 8px 24px rgba(0,0,0,.25) }
     .icon{ width:42px; height:42px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(180deg, rgba(34,211,238,.18), rgba(37,99,235,.18)); margin-bottom:.5rem; font-weight:900 }
+    .avatar{ width:42px; height:42px; border-radius:50%; background:linear-gradient(180deg, rgba(34,211,238,.18), rgba(37,99,235,.18)) }
     .list{ display:grid; gap:.5rem; padding-left: 1rem }
     .list li{ margin-left:.4rem }
     .pill{ padding:.35rem .6rem; background:rgba(255,255,255,.06); border-radius:999px; font-weight:800; font-size:.8rem }
@@ -114,7 +115,7 @@
       <nav class="nav-links" id="nav" aria-label="Principal">
         <a href="#solucoes">Soluções</a>
         <a href="#como-funciona">Como funciona</a>
-        <a href="#prova">Prova</a>
+        <a href="#cases">Cases</a>
         <a href="#precos">Planos</a>
         <a href="#faq">FAQ</a>
         <a href="#contato">Contato</a>
@@ -230,33 +231,66 @@
       </div>
     </section>
 
-    <!-- ===== PROVA SOCIAL / CASES ===== -->
-    <section id="prova">
+    <!-- ===== CASES ===== -->
+    <section id="cases">
       <div class="container">
-        <h2 class="section-title">Resultados em clientes</h2>
-        <div class="grid-3" style="margin-top:1rem">
+        <h2 class="section-title">Cases por segmento</h2>
+        <div style="margin-top:1rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem">
+          <!-- Escolas -->
           <div class="card">
-            <b>Escola Mirim</b>
-            <p class="muted">Atendimento & Cobrança</p>
-            <p>Automação de triagem e pagamentos: <b>+31%</b> de recuperação em 60 dias.</p>
+            <div style="display:flex; gap:.7rem; align-items:center;">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <b>Escolas</b>
+                <small class="muted">Secretaria & Cobrança</small>
+              </div>
+            </div>
+            <p style="margin:.6rem 0 0;">
+              Secretaria 24/7 com triagem de interessados, rematrícula automática e cobrança com PIX; régua por faixas e relatórios. Resultado: <b>+31%</b> de recuperação em 60 dias.
+            </p>
           </div>
+
+          <!-- Comércios -->
           <div class="card">
-            <b>Varejo Local</b>
-            <p class="muted">Leads & Agendamentos</p>
-            <p>Ofertas dinâmicas por IA geraram <b>+22%</b> em conversões semanais.</p>
+            <div style="display:flex; gap:.7rem; align-items:center;">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <b>Comércios</b>
+                <small class="muted">Leads & Vendas</small>
+              </div>
+            </div>
+            <p style="margin:.6rem 0 0;">
+              Catálogo e ofertas dinâmicas no WhatsApp, qualificação e agendamento automático; recuperação de carrinhos e follow-up. Conversões semanais: <b>+22%</b>.
+            </p>
           </div>
+
+          <!-- Serviços -->
           <div class="card">
-            <b>Serviços</b>
-            <p class="muted">Suporte & FAQ</p>
-            <p>Redução de <b>45%</b> em tickets repetitivos com base de conhecimento.</p>
+            <div style="display:flex; gap:.7rem; align-items:center;">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <b>Serviços</b>
+                <small class="muted">Suporte & FAQ</small>
+              </div>
+            </div>
+            <p style="margin:.6rem 0 0;">
+              Redução de <b>45%</b> em tickets repetitivos com base de conhecimento.
+            </p>
           </div>
-        </div>
-        <div class="cta-band" style="margin-top:1.2rem">
-          <div>
-            <h3 style="margin:.2rem 0 .3rem">Pronto para ver funcionando no seu cenário?</h3>
-            <p class="muted" style="margin:0">Demonstração guiada com seu contexto real.</p>
+
+          <!-- Clínicas & Saúde -->
+          <div class="card">
+            <div style="display:flex; gap:.7rem; align-items:center;">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <b>Clínicas & Saúde</b>
+                <small class="muted">Agendamentos & Lembretes</small>
+              </div>
+            </div>
+            <p style="margin:.6rem 0 0;">
+              Pré-triagem por IA, confirmação automática e lembretes multicanal; pós-consulta com NPS. Resultado: redução de <b>29%</b> no no-show.
+            </p>
           </div>
-          <a class="btn" href="#contato">Agendar demo</a>
         </div>
       </div>
     </section>
@@ -436,7 +470,7 @@
           <ul class="list" style="margin-top:.6rem">
             <li><a href="#solucoes">Soluções</a></li>
             <li><a href="#como-funciona">Como funciona</a></li>
-            <li><a href="#prova">Prova</a></li>
+            <li><a href="#cases">Cases</a></li>
             <li><a href="#precos">Planos</a></li>
             <li><a href="#contato">Contato</a></li>
           </ul>
