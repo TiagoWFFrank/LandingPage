@@ -1,0 +1,13 @@
+{
+  "name": "landingpage",
+  "version": "1.0.0",
+  "description": "Simple server to run landing page on localhost:3001",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No tests configured\""
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
