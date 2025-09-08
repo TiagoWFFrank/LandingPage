@@ -388,12 +388,12 @@
             </select>
           </div>
           <div class="field" style="margin-top:.6rem;">
-            <label>Funções do WhatsApp</label>
-            <div class="list" style="margin-top:.4rem;">
-              <label><input type="checkbox" name="funcoes" value="mensagens"> Mensagens de texto — leitura e resposta</label>
-              <label><input type="checkbox" name="funcoes" value="imagens"> Imagens enviadas — análise e resposta</label>
-              <label><input type="checkbox" name="funcoes" value="audios"> Áudios — transcrição e resposta</label>
-            </div>
+            <label for="plan-funcoes">Funções do WhatsApp</label>
+            <select class="select" id="plan-funcoes" name="funcoes" multiple>
+              <option value="mensagens">Mensagens de texto — leitura e resposta</option>
+              <option value="imagens">Imagens enviadas — análise e resposta</option>
+              <option value="audios">Áudios — transcrição e resposta</option>
+            </select>
           </div>
           <div style="margin-top:1rem;">
             <button class="btn" type="submit">Enviar</button>
