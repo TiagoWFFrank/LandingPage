@@ -48,7 +48,7 @@
     .avatar{width:48px;height:48px;border-radius:50%;background:#0e5c47;display:grid;place-items:center;font-weight:700;color:#c9f7e6}
     .title{display:flex;align-items:center;gap:6px}
     .name{font-weight:600}
-    .preview{color:var(--text-200);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .preview{color:var(--text-200);white-space:normal;overflow-wrap:break-word}
     .time{color:var(--text-200);font-size:12px}
 
     /* ===== Área do chat ===== */
@@ -60,8 +60,8 @@
     .chat__name{font-weight:700}
     .chat__status{color:var(--text-200);font-size:12px}
 
-    .messages{position:relative;z-index:1;flex:1;overflow:auto;padding:24px 8% 120px;display:flex;flex-direction:column;gap:6px}
-    .msg{max-width:min(72%,760px);padding:8px 10px;border-radius:var(--radius);position:relative;box-shadow:0 1px 0 rgba(0,0,0,.2)}
+    .messages{position:relative;z-index:1;flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 8% 120px;display:flex;flex-direction:column;gap:6px}
+    .msg{max-width:min(72%,760px);padding:8px 10px;border-radius:var(--radius);position:relative;box-shadow:0 1px 0 rgba(0,0,0,.2);word-break:break-word}
     .msg .meta{display:flex;align-items:center;gap:4px;float:right;margin-left:12px;color:#c8d7db;opacity:.8;font-size:11px}
     .msg .checks{width:16px;height:16px;display:inline-flex}
     .msg.in{background:rgba(32,44,51,.95);align-self:flex-start;border-top-left-radius:4px}
@@ -76,8 +76,6 @@
     .composer button{border:0;background:transparent;color:var(--text-100);cursor:pointer;width:36px;height:36px}
     .composer .send{background:var(--primary);border-radius:50%;width:40px;height:40px;display:grid;place-items:center}
 
-    .storebar{padding:8px 14px;border-top:1px solid #233138;color:var(--text-200);display:flex;gap:8px;align-items:center}
-    .badge{background:#0b6e4f;border-radius:6px;padding:4px 8px;color:#d9fff2;font-weight:600}
 
     @media (max-width:1024px){
       .app{grid-template-columns:1fr}
@@ -114,10 +112,6 @@
           </div>
           <div class="time">13:22</div>
         </div>
-      </div>
-      <div class="storebar">
-        <span class="badge">Windows</span>
-        <span>Baixar o WhatsApp para Windows</span>
       </div>
     </aside>
 
