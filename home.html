@@ -83,6 +83,18 @@
     #plan-plataforma, #plan-plataforma option,
     #plan-area, #plan-area option{ background:var(--panel); }
 
+    #plan-modal{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:grid; place-items:center; z-index:80 }
+    #plan-modal.visually-hidden{ display:none }
+    #plan-modal .modal-card{ width:min(90%,520px); background:var(--panel); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:1.2rem; box-shadow:0 20px 60px rgba(0,0,0,.45) }
+    #plan-modal .modal-head{ display:flex; justify-content:space-between; align-items:center; gap:1rem }
+    #plan-modal .modal-head h3{ margin:0 }
+    #plan-modal .modal-head button{ padding:.4rem .6rem }
+    #plan-form{ margin-top:.8rem }
+    #plan-form .field + .field{ margin-top:.6rem }
+    #plan-form .btn{ margin-top:1rem }
+    #plan-status{ margin-top:.6rem }
+    #plan-funcoes .list{ margin-top:.4rem }
+
     .chat-frame{ width:100%; height:640px; border:0; border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,.25); background:#111 }
 
     .pricing{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem }
@@ -422,34 +434,34 @@
 
   <!-- Modal de plano -->
   <div id="plan-modal" class="visually-hidden" role="dialog" aria-modal="true" aria-labelledby="plan-title">
-    <div class="card" style="width:min(90%,520px); position:fixed; inset:auto 50% 10% auto; transform:translateX(50%); background:#0f162e; border:1px solid rgba(255,255,255,.08); padding:1.2rem; z-index:80">
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem">
-        <h3 id="plan-title" class="section-title" style="margin:0">Monte seu plano</h3>
-        <button id="closePlan" class="btn secondary" style="padding:.4rem .6rem">Fechar</button>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="plan-title" class="section-title">Monte seu plano</h3>
+        <button id="closePlan" class="btn secondary">Fechar</button>
       </div>
-      <form id="plan-form" style="margin-top:.8rem">
-        <div class="field"><label for="plan-agentes">Agentes</label><input id="plan-agentes" type="number" min="1" required class="input" placeholder="0"></div>
-        <div class="field" style="margin-top:.6rem">
-          <label for="plan-area">Área</label>
-          <select id="plan-area" class="input"><option>SAC</option><option>Secretaria</option><option>Novo cliente</option><option>Vendas</option><option>Consultoria</option><option>Dúvidas</option><option>Suporte</option></select>
-        </div>
-        <div class="field" style="margin-top:.6rem">
-          <label for="plan-plataforma">Plataforma</label>
-          <select id="plan-plataforma" class="input"><option>WhatsApp</option><option>Messenger</option><option>Telegram</option><option>Chat privado</option><option>Instagram Direct</option></select>
-        </div>
-        <div class="field" id="plan-funcoes" style="margin-top:.6rem">
-          <label>Funções (WhatsApp)</label>
-          <div class="list" style="margin-top:.4rem">
-            <label><input type="checkbox" value="mensagens"> Mensagens de texto</label>
-            <label><input type="checkbox" value="imagens"> Imagens — análise</label>
-            <label><input type="checkbox" value="audios"> Áudios — transcrição</label>
+        <form id="plan-form">
+          <div class="field"><label for="plan-agentes">Agentes</label><input id="plan-agentes" type="number" min="1" required class="input" placeholder="0"></div>
+          <div class="field">
+            <label for="plan-area">Área</label>
+            <select id="plan-area" class="input"><option>SAC</option><option>Secretaria</option><option>Novo cliente</option><option>Vendas</option><option>Consultoria</option><option>Dúvidas</option><option>Suporte</option></select>
           </div>
-        </div>
-        <div style="margin-top:1rem"><button class="btn" type="submit">Enviar</button></div>
-        <p id="plan-status" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
-      </form>
+          <div class="field">
+            <label for="plan-plataforma">Plataforma</label>
+            <select id="plan-plataforma" class="input"><option>WhatsApp</option><option>Messenger</option><option>Telegram</option><option>Chat privado</option><option>Instagram Direct</option></select>
+          </div>
+          <div class="field" id="plan-funcoes">
+            <label>Funções (WhatsApp)</label>
+            <div class="list">
+              <label><input type="checkbox" value="mensagens"> Mensagens de texto</label>
+              <label><input type="checkbox" value="imagens"> Imagens — análise</label>
+              <label><input type="checkbox" value="audios"> Áudios — transcrição</label>
+            </div>
+          </div>
+          <button class="btn" type="submit">Enviar</button>
+          <p id="plan-status" class="muted" role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
-  </div>
 
   <footer>
     <div class="container">
@@ -514,6 +526,7 @@
     function closeM(){ modal.classList.add('visually-hidden'); document.body.style.overflow=''; lastFocus?.focus(); }
     openPlan?.addEventListener('click',openM); closePlan?.addEventListener('click',closeM);
     modal?.addEventListener('keydown',e=>{ if(e.key==='Escape') closeM(); });
+    modal?.addEventListener('click',e=>{ if(e.target===modal) closeM(); });
     planForm?.addEventListener('submit',e=>{ e.preventDefault(); document.getElementById('plan-status').textContent='Plano registrado localmente.'; });
     plataforma?.addEventListener('change',()=>{ funcoes.style.display = plataforma.value==='WhatsApp' ? 'block' : 'none'; });
   </script>
