@@ -57,8 +57,7 @@
     .sub{ color:var(--muted); font-size:clamp(1rem,1.3vw,1.15rem); max-width:60ch }
     .hero-card{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); color:#e5e7eb; border-radius:16px; padding:1.2rem; box-shadow:0 20px 60px rgba(2,6,23,.45) }
     .kpis{ display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem }
-    .kpi{ text-align:center; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); padding:.9rem; border-radius:.8rem }
-    .kpi b{ display:block; font-size:1.4rem; color:#fff }
+    .kpi{ text-align:center; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); padding:.9rem; border-radius:.8rem; font-weight:700; color:#fff }
 
     /* ===== Sections ===== */
     section{ padding:clamp(2.2rem,6vw,4rem) 0; }
@@ -155,14 +154,16 @@
         <aside class="hero-card" aria-label="Destaques">
           <h3 class="section-title">Resultados típicos</h3>
           <div class="kpis">
-            <div class="kpi"><small class="muted">Redução no tempo de resposta</small><b>para seus clientes</b></div>
-            <div class="kpi"><small class="muted">Atuação</small><b>24/7</b></div>
-            <div class="kpi"><small class="muted">Aproveitamento de vendas</small><b>+76% em média</b></div>
+            <div class="kpi">Redução no tempo de resposta para seus clientes</div>
+            <div class="kpi">Atuação 24/7</div>
+            <div class="kpi">Aproveitamento de vendas +76% em média</div>
           </div>
           <div style="margin-top:1rem; display:flex; gap:.5rem; flex-wrap:wrap">
             <span class="pill">Escolas</span>
             <span class="pill">Varejo</span>
             <span class="pill">Serviços</span>
+            <span class="pill">Vendas</span>
+            <span class="pill">SAC</span>
           </div>
         </aside>
       </div>
