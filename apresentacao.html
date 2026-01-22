@@ -1,0 +1,424 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apresentação — ImpulsoCore</title>
+  <meta name="description" content="Apresentação guiada da ImpulsoCore: veja como IA no WhatsApp transforma atendimento, cobrança e vendas." />
+  <link rel="icon" href="assets/images/logo_sem_fundo.png" type="image/png" />
+  <style>
+    *,*::before,*::after{ box-sizing:border-box }
+    :root{
+      --bg:#050816;
+      --panel:#0f172a;
+      --ink:#e2e8f0;
+      --muted:#94a3b8;
+      --brand:#22d3ee;
+      --brand-2:#2563eb;
+    }
+    html{ scroll-behavior:smooth }
+    body{ margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",Arial; background:var(--bg); color:var(--ink); line-height:1.6 }
+    img{ max-width:100%; display:block }
+    a{ color:inherit; text-decoration:none }
+    header{ position:sticky; top:0; z-index:40; background:rgba(5,8,22,.9); border-bottom:1px solid rgba(255,255,255,.08); backdrop-filter:blur(8px) }
+    .container{ width:min(1160px,92%); margin-inline:auto }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:.9rem 0 }
+    .brand{ display:flex; align-items:center; gap:.6rem; font-weight:800 }
+    .nav-links{ display:flex; gap:1rem; align-items:center }
+    .nav-links a{ color:var(--muted); font-weight:600 }
+    .nav-links a:hover{ color:#fff }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; padding:.85rem 1.2rem; border-radius:.75rem; border:0; cursor:pointer; font-weight:700; transition:transform .1s ease, box-shadow .2s ease }
+    .btn-primary{ background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#00111f; box-shadow:0 15px 35px rgba(34,211,238,.25) }
+    .btn-secondary{ background:transparent; border:1px solid rgba(255,255,255,.25); color:var(--ink) }
+    .hero{ padding:clamp(2rem,5vw,4rem) 0 2rem }
+    .hero-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:2rem; align-items:center }
+    .eyebrow{ display:inline-flex; padding:.35rem .7rem; border-radius:999px; background:rgba(34,211,238,.15); color:#a5f3fc; font-size:.85rem; font-weight:700 }
+    h1{ font-size:clamp(2rem,4.5vw,3.4rem); line-height:1.1; margin:.4rem 0 .6rem }
+    .sub{ color:var(--muted); font-size:1.05rem }
+    .hero-visual{ background:var(--panel); border-radius:18px; padding:1.4rem; border:1px solid rgba(255,255,255,.08); box-shadow:0 25px 60px rgba(0,0,0,.45) }
+    .before-after{ display:grid; gap:.8rem }
+    .before-after h4{ margin:.2rem 0; font-size:1rem }
+    .before-after ul{ list-style:none; padding:0; margin:0; color:var(--muted); line-height:1.5 }
+    .before-after li::before{ content:'• '; color:var(--brand); }
+    .mini-band{ margin-top:1.2rem; display:flex; gap:1rem; flex-wrap:wrap; padding:1rem; border-radius:14px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08) }
+    section{ padding:clamp(2rem,5vw,3.5rem) 0; border-top:1px solid rgba(255,255,255,.05) }
+    .section-title{ font-size:1.9rem; margin:0 0 .6rem }
+    .muted{ color:var(--muted) }
+    .agenda-list, .impact-list{ list-style:none; padding:0; margin:1.2rem 0 0; display:grid; gap:.4rem }
+    .steps{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem }
+    .agenda-list li{ background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:.8rem 1rem; font-weight:600; color:var(--ink) }
+    .grid-3{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem }
+    .card{ background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:1rem }
+    .card h3{ margin:.2rem 0 .4rem }
+    .card p{ margin:0 }
+    .pill{ display:inline-flex; padding:.2rem .5rem; border-radius:999px; background:rgba(255,255,255,.08); font-size:.75rem; color:var(--muted); margin-bottom:.4rem }
+    .list{ list-style:none; padding:0; margin:.4rem 0 0; color:var(--muted) }
+    .list li{ margin-bottom:.35rem }
+    .two-col{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem }
+    .cta-group{ display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1rem }
+    footer{ border-top:1px solid rgba(255,255,255,.08); padding:1.5rem 0; text-align:center; color:var(--muted) }
+    @media(max-width:1024px){
+      .hero-grid{ grid-template-columns:1fr }
+      header{ position:static }
+      .nav{ flex-wrap:wrap; gap:1rem }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="assets/images/logo_sem_fundo.png" alt="ImpulsoCore" style="width:44px;height:44px;border-radius:10px" />
+        <span>ImpulsoCore</span>
+      </div>
+      <div class="nav-links">
+        <a href="#agenda">Agenda</a>
+        <a href="#cenario">Cenário</a>
+        <a href="#visao">Visão de futuro</a>
+        <a href="#pilares">Pilares</a>
+        <a href="#proximos">Próximos passos</a>
+        <a class="btn-secondary btn" href="home.html">Voltar à home</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="topo">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Apresentação guiada</span>
+          <h1>Como a ImpulsoCore transforma atendimento, cobrança e vendas da sua empresa.</h1>
+          <p class="sub">Nesta apresentação você vê, passo a passo, como conectamos agentes de IA ao seu WhatsApp, Chatwoot e sistemas internos para tirar o peso da sua equipe, aumentar a recuperação de boletos e organizar o pipeline. Em poucos minutos, dá para saber se faz sentido para a sua realidade.</p>
+          <div class="cta-group">
+            <a class="btn btn-primary" href="#agenda">Quero ver a apresentação completa</a>
+            <a class="btn btn-secondary" href="home.html#contato">Prefiro falar com um especialista</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="before-after">
+            <div>
+              <h4>Antes</h4>
+              <ul>
+                <li>WhatsApp espalhado em celulares.</li>
+                <li>Planilhas para cobrar e vender.</li>
+                <li>Equipe respondendo as mesmas perguntas.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Depois com ImpulsoCore</h4>
+              <ul>
+                <li>IA responde e registra tudo no mesmo painel.</li>
+                <li>Régua de cobrança automatizada com link de pagamento.</li>
+                <li>Gestão enxerga pipeline e indicadores em tempo real.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container mini-band">
+        <span>✓ Entenda em 10 minutos o que a ImpulsoCore faz.</span>
+        <span>✓ Veja exemplos para escolas, clínicas e serviços.</span>
+        <span>✓ Descubra o impacto em cobrança, vendas e atendimento.</span>
+      </div>
+    </section>
+
+    <section id="agenda">
+      <div class="container">
+        <h2 class="section-title">O que você vai ver nesta apresentação</h2>
+        <p class="muted">Estruturamos como um roteiro de reunião comercial. Você pode navegar sozinho ou usar cada bloco para conduzir uma conversa ao vivo.</p>
+        <ol class="agenda-list">
+          <li>O cenário atual: por que sua operação fica travada.</li>
+          <li>A visão de futuro com a ImpulsoCore.</li>
+          <li>Os pilares do produto (Atendimento, Cobrança, Gestão, Integração).</li>
+          <li>Exemplos por tipo de negócio.</li>
+          <li>ROI e impacto real no dia a dia.</li>
+          <li>Próximos passos para colocar em prática.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="cenario">
+      <div class="container">
+        <h2 class="section-title">Reconheça se esta é a sua realidade hoje</h2>
+        <p class="muted">Se o cliente concordar com três ou mais pontos, a chance da ImpulsoCore encaixar é enorme.</p>
+        <div class="grid-3" style="margin-top:1rem">
+          <div class="card">
+            <span class="pill">Atendimento e WhatsApp</span>
+            <ul class="list">
+              <li>Vários atendentes em celulares diferentes.</li>
+              <li>Mensagens se perdem entre grupos e listas.</li>
+              <li>Muita pergunta repetida (horário, valor, regras).</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill">Cobrança e financeiro</span>
+            <ul class="list">
+              <li>Cobrança manual, um boleto por vez.</li>
+              <li>Lembretes sem padrão e em cima da hora.</li>
+              <li>Nenhuma visão clara de quem está atrasado.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill">Gestão e previsibilidade</span>
+            <ul class="list">
+              <li>Funil improvisado em planilhas.</li>
+              <li>Dificuldade de saber o que está funcionando.</li>
+              <li>Decisão baseada em sensação, não em dados.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:1rem"><strong>Se pelo menos parte disso é verdade na sua empresa, a ImpulsoCore é o que falta para organizar a operação.</strong></p>
+      </div>
+    </section>
+
+    <section id="visao">
+      <div class="container">
+        <h2 class="section-title">Como sua empresa pode funcionar com a ImpulsoCore</h2>
+        <p class="muted">Visualize o “depois”: o dia a dia da equipe, da gestão e do financeiro quando o WhatsApp deixa de ser caótico.</p>
+        <div class="three-col grid-3">
+          <div class="card">
+            <h3>Cliente final</h3>
+            <ul class="list">
+              <li>Recebe respostas rápidas e padronizadas, 24h.</li>
+              <li>Resolve o básico sem esperar um humano.</li>
+              <li>Recebe lembretes e confirmações no tempo certo.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Equipe</h3>
+            <ul class="list">
+              <li>Foca nos atendimentos que exigem atenção humana.</li>
+              <li>Não responde 100 vezes a mesma pergunta.</li>
+              <li>Enxerga pendências, cobranças e follow-ups em um painel.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Gestão</h3>
+            <ul class="list">
+              <li>Acompanha volume de mensagens e boletos.</li>
+              <li>Tem funil de vendas/matrículas com etapas claras.</li>
+              <li>Toma decisão com indicadores, não com achismo.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:1rem"><strong>A ImpulsoCore não é “um robozinho no WhatsApp”. É o caminho para transformar um canal caótico em um processo previsível, medido e escalável.</strong></p>
+      </div>
+    </section>
+
+    <section id="pilares">
+      <div class="container">
+        <h2 class="section-title">Os 4 pilares da ImpulsoCore</h2>
+        <p class="muted">Em vez de listar funcionalidades, mostramos os blocos que resolvem seus desafios.</p>
+        <div class="grid-3" style="margin-top:1rem">
+          <div class="card">
+            <h3>Atendimento por IA</h3>
+            <ul class="list">
+              <li>Agentes respondem dúvidas e abrem chamados.</li>
+              <li>Multi-canais: WhatsApp, Webchat, Instagram, Messenger.</li>
+              <li>Tom de voz adaptado ao seu negócio.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Cobrança inteligente</h3>
+            <ul class="list">
+              <li>Réguas automáticas por faixas (D+1 até D+60).</li>
+              <li>Mensagens com links, acordos e lembretes.</li>
+              <li>Registro automático de quem pagou ou respondeu.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Gestão do funil</h3>
+            <ul class="list">
+              <li>Visão simples para leads, matrículas e contratos.</li>
+              <li>Gatilhos automáticos de follow-up.</li>
+              <li>Organização por etapas, responsáveis e status.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Integrações e dados</h3>
+            <ul class="list">
+              <li>Conexão com Chatwoot, planilhas, CRM/ERP, APIs.</li>
+              <li>Envio de dados para BI e relatórios personalizados.</li>
+              <li>Sem quebrar o que já funciona na sua empresa.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mercados">
+      <div class="container">
+        <h2 class="section-title">Como a ImpulsoCore se encaixa em diferentes tipos de negócio</h2>
+        <p class="muted">Use estes exemplos para ilustrar a realidade do cliente durante uma call.</p>
+        <div class="grid-3" style="margin-top:1rem">
+          <div class="card">
+            <h3>Escolas e cursos</h3>
+            <p class="muted">Secretaria responde novos interessados e responsáveis. IA tira dúvidas sobre valores e documentos. Cobrança lembra mensalidade e gestão acompanha rematrículas.</p>
+          </div>
+          <div class="card">
+            <h3>Clínicas e saúde</h3>
+            <p class="muted">IA faz triagem, explica preparo de exames e confirma consultas. Lembretes reduzem faltas e financeiro vê quem precisa ser cobrado ou reagendado.</p>
+          </div>
+          <div class="card">
+            <h3>Varejo e serviços</h3>
+            <p class="muted">Clientes pedem orçamento via WhatsApp. IA coleta dados e faz pré-orçamento. Vendedor entra só quando o lead está quente e o funil mostra onde cada oportunidade está.</p>
+          </div>
+          <div class="card">
+            <h3>Operações B2B / times de vendas</h3>
+            <p class="muted">Leads de várias fontes caem em um único fluxo. IA qualifica com perguntas específicas e vendedores recebem contexto e prioridade. Gestão acompanha por etapa e responsável.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roi">
+      <div class="container">
+        <h2 class="section-title">Qual é o impacto real da ImpulsoCore?</h2>
+        <p class="muted">Olhe para o que você deixa de perder e o que pode ganhar com uma operação organizada.</p>
+        <div class="grid-3" style="margin-top:1rem">
+          <div class="card">
+            <h3>Menos retrabalho</h3>
+            <ul class="list">
+              <li>Respostas repetidas saem da rotina humana.</li>
+              <li>Contexto centralizado, ninguém caça conversa antiga.</li>
+              <li>Equipe foca em casos complexos.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Recuperação de boletos</h3>
+            <ul class="list">
+              <li>Mais lembretes enviados, com padrão.</li>
+              <li>Histórico para negociar com quem importa.</li>
+              <li>Menos dependência do humor de quem cobra.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Conversão de leads</h3>
+            <ul class="list">
+              <li>Leads não ficam “esquecidos”.</li>
+              <li>Tempo de resposta cai — aumenta conversão.</li>
+              <li>Funil mostra gargalos por etapa.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:1rem">Mini roteiro: se você perde 5 matrículas/mês por falta de acompanhamento e deixa de recuperar 10 boletos/mês por falta de rotina, quanto isso representa por ano? A ImpulsoCore atua exatamente nesses pontos.</p>
+      </div>
+    </section>
+
+    <section id="seguranca">
+      <div class="container">
+        <h2 class="section-title">Segurança, controle e conformidade</h2>
+        <p class="muted">Mostre que dá para usar IA sem perder governança.</p>
+        <div class="two-col" style="margin-top:1rem">
+          <div class="card">
+            <ul class="list">
+              <li>Dados tratados conforme boas práticas e criptografia em trânsito.</li>
+              <li>Adequação à LGPD em uso de dados de contato e mensagens.</li>
+              <li>Perfis de acesso definindo quem enxerga cada informação.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <ul class="list">
+              <li>Registro e auditoria de conversas para consultas futuras.</li>
+              <li>Ambiente dedicado opcional para operações mais críticas.</li>
+              <li>Compatível com controles internos e requisitos de TI.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="jornada">
+      <div class="container">
+        <h2 class="section-title">Como é a jornada para colocar a ImpulsoCore para rodar</h2>
+        <p class="muted">Do primeiro contato ao go-live, tudo é guiado. Você não fica perdido com uma ferramenta.</p>
+        <div class="steps">
+          <div class="card"><span class="pill">1. Diagnóstico</span><h3>Desenho</h3><p class="muted">Entendimento da operação atual e definição dos agentes de IA iniciais.</p></div>
+          <div class="card"><span class="pill">2. Configuração</span><h3>Integrações</h3><p class="muted">Conexão com WhatsApp Business API, Chatwoot e sistemas internos.</p></div>
+          <div class="card"><span class="pill">3. Treinamento</span><h3>Ajustes</h3><p class="muted">Mensagens, tom de voz e onboarding da equipe.</p></div>
+          <div class="card"><span class="pill">4. Go-live</span><h3>Assistido</h3><p class="muted">Operação em produção com monitoramento próximo.</p></div>
+          <div class="card"><span class="pill">5. Evolução</span><h3>Otimização</h3><p class="muted">Revisão periódica e inclusão de novos agentes ou canais.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="perfis">
+      <div class="container">
+        <h2 class="section-title">O que muda para cada área da empresa</h2>
+        <div class="grid-3" style="margin-top:1rem">
+          <div class="card">
+            <h3>Diretoria / dono</h3>
+            <ul class="list">
+              <li>Visão clara de indicadores.</li>
+              <li>Operação menos dependente de pessoas específicas.</li>
+              <li>Mais previsibilidade de receita.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Atendimento / secretaria</h3>
+            <ul class="list">
+              <li>Menos volume bruto de mensagens.</li>
+              <li>Foco em atendimentos complexos.</li>
+              <li>Rotina mais organizada, menos stress.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Financeiro / cobrança</h3>
+            <ul class="list">
+              <li>Processo desenhado e repetível.</li>
+              <li>Histórico de respostas e acordos.</li>
+              <li>Clareza sobre quem vale cobrar de novo.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Time de vendas</h3>
+            <ul class="list">
+              <li>Leads mais qualificados.</li>
+              <li>Menos tempo atrás de cliente frio.</li>
+              <li>Pipeline visível, prioridades claras.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proximos">
+      <div class="container">
+        <h2 class="section-title">Próximos passos para testar a ImpulsoCore na sua realidade</h2>
+        <p class="muted">Se fez sentido, o próximo passo é simples: entender seu cenário específico e montar uma proposta objetiva.</p>
+        <div class="grid-3" style="margin-top:1rem">
+          <div class="card">
+            <h3>1. Diagnóstico</h3>
+            <p class="muted">Trazemos seus números, rotina e dores para enxergar o encaixe.</p>
+          </div>
+          <div class="card">
+            <h3>2. Plano sob medida</h3>
+            <p class="muted">Ajuste de canais, volume, agentes e integrações com estimativa de ROI.</p>
+          </div>
+          <div class="card">
+            <h3>3. Piloto</h3>
+            <p class="muted">Comece por um processo (cobrança, atendimento ou vendas) e meça resultados.</p>
+          </div>
+        </div>
+        <div class="cta-group" style="margin-top:1rem">
+          <a class="btn btn-primary" href="home.html#contato">Quero agendar um diagnóstico</a>
+          <a class="btn btn-secondary" href="home.html#configurador">Quero montar meu plano</a>
+          <a class="btn btn-secondary" href="https://wa.me/5511963998061" target="_blank" rel="noopener">Falar com especialista agora</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> ImpulsoCore · São Paulo • SP · contato@impulsocore.com</p>
+      <a class="muted" href="home.html">Voltar para home principal</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+

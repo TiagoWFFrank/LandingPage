@@ -1,32 +1,30 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Simulação do WhatsApp — ImpulsoCore</title>
-  <meta name="description" content="Mock visual do WhatsApp Web para simular uma conversa (bot x cliente)." />
+  <meta name="description" content="Converse com o assistente da ImpulsoCore em um ambiente inspirado no WhatsApp." />
   <style>
     :root{
-      --bg-100:#111b21;      /* fundo app */
-      --bg-200:#0b141a;      /* fundo sidebar */
-      --panel-1:#202c33;     /* painéis */
-      --panel-2:#1e2a30;     
-      --primary:#00a884;     /* verde WhatsApp */
-      --text-100:#e9edef;    /* texto forte */
-      --text-200:#8696a0;    /* texto fraco */
-      --out:#005c4b;         /* bolha enviada */
-      --in:#202c33;          /* bolha recebida */
-      --accent:#53bdeb;      /* links */
+      --bg-100:#111b21;
+      --bg-200:#0b141a;
+      --panel-1:#202c33;
+      --panel-2:#1e2a30;
+      --primary:#00a884;
+      --text-100:#e9edef;
+      --text-200:#8696a0;
+      --out:#005c4b;
+      --in:#202c33;
+      --accent:#53bdeb;
       --radius:14px;
     }
     *{box-sizing:border-box}
     html,body{height:100%;overflow:hidden}
-    body{margin:0;background:var(--bg-100);color:var(--text-100);font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    body{margin:0;background:var(--bg-100);color:var(--text-100);font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",Arial}
 
-    /* ===== Layout principal ===== */
     .app{display:grid;grid-template-columns:360px 1fr;height:100dvh;overflow:hidden}
 
-    /* ===== Sidebar ===== */
     .sidebar{background:var(--bg-200);border-right:1px solid #26343b;display:flex;flex-direction:column}
     .sidebar__top{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid #233138}
     .logo{font-weight:700}
@@ -48,12 +46,10 @@
     .avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;display:block}
     .title{display:flex;align-items:center;gap:6px}
     .name{font-weight:600}
-    .preview{color:var(--text-200);white-space:normal;overflow-wrap:break-word}
+    .preview{color:var(--text-200);white-space:normal;overflow-wrap:break-word;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;min-height:2.6em}
     .time{color:var(--text-200);font-size:12px}
 
-    /* ===== Área do chat ===== */
     .chat{position:relative;display:flex;flex-direction:column;min-width:0;height:100%;overflow:hidden}
-
     .chat::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1575330690521-1c4c9378da57?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;filter:brightness(.7)}
     .chat__header{position:relative;z-index:1;display:flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(17,27,33,.92);border-left:1px solid #26343b;border-bottom:1px solid #26343b}
     .chat__contact{display:flex;flex-direction:column}
@@ -66,16 +62,19 @@
     .msg .checks{width:16px;height:16px;display:inline-flex}
     .msg.in{background:rgba(32,44,51,.95);align-self:flex-start;border-top-left-radius:4px}
     .msg.out{background:rgba(0,92,75,.95);align-self:flex-end;border-top-right-radius:4px}
+    .msg.typing{background:rgba(32,44,51,.9);border-top-left-radius:4px;align-self:flex-start}
+    .typing-dots{display:inline-flex;gap:4px;align-items:center}
+    .typing-dots span{width:6px;height:6px;background:#c8d7db;border-radius:50%;opacity:.35;animation:blink .9s infinite ease-in-out}
+    .typing-dots span:nth-child(2){animation-delay:.15s}
+    .typing-dots span:nth-child(3){animation-delay:.3s}
+    @keyframes blink{0%,80%,100%{opacity:.35;transform:translateY(0)}40%{opacity:1;transform:translateY(-1px)}}
 
-    .msg-group{display:flex;flex-direction:column;gap:6px}
-
-    /* ===== Composer ===== */
     .composer{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:10px 16px;background:rgba(17,27,33,.98);border-top:1px solid #1f2b30;display:flex;align-items:center;gap:10px}
     .composer .field{flex:1;display:flex;align-items:center;background:#1f2c33;border-radius:10px;padding:6px}
     .composer input{flex:1;background:transparent;border:0;color:var(--text-100);padding:8px}
     .composer button{border:0;background:transparent;color:var(--text-100);cursor:pointer;width:36px;height:36px}
-    .composer .send{background:var(--primary);border-radius:50%;width:40px;height:40px;display:grid;place-items:center}
-
+    .composer .send{background:var(--primary);border-radius:50%;width:40px;height:40px;display:grid;place-items:center;transition:opacity .2s ease,outline .2s ease}
+    .composer .send:disabled{opacity:.5;cursor:not-allowed}
 
     @media (max-width:1024px){
       .app{grid-template-columns:1fr}
@@ -89,121 +88,268 @@
       <div class="sidebar__top">
         <div class="logo">WhatsApp</div>
         <div class="tool-icons">
-          <button class="icon-btn" title="Status"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7Zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"/></svg></button>
-          <button class="icon-btn" title="Nova conversa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8l-4 3V6a2 2 0 0 1 2-2Z"/></svg></button>
-          <button class="icon-btn" title="Mais"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg></button>
+          <button class="icon-btn" title="Status"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9Zm0 16.2A7.2 7.2 0 1 1 19.2 12 7.2 7.2 0 0 1 12 19.2Z"/></svg></button>
+          <button class="icon-btn" title="Nova conversa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v16l4-4h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 12H6.17L5 16.17V5h14Z"/></svg></button>
+          <button class="icon-btn" title="Menu"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7a2 2 0 1 1 2-2 2 2 0 0 1-2 2Zm0 2a2 2 0 1 0 2 2 2 2 0 0 0-2-2Zm0 6a2 2 0 1 0 2 2 2 2 0 0 0-2-2Z"/></svg></button>
         </div>
       </div>
+
       <div class="search">
-        <input type="text" placeholder="Pesquisar ou começar uma nova conversa" aria-label="Pesquisar" />
+        <input type="text" placeholder="Buscar ou começar uma nova conversa" aria-label="Buscar conversa" />
       </div>
+
       <div class="filters">
-        <button class="pill active">Tudo</button>
-        <button class="pill">Não lidas</button>
-        <button class="pill">Favoritas</button>
-        <button class="pill">Grupos</button>
+        <button class="pill active">Todos</button>
+        <button class="pill">ImpulsoCore</button>
+        <button class="pill">Clientes</button>
       </div>
-      <div class="chats" id="chatList">
-        <div class="chat-item active" data-chat="impulsocore">
-          <img class="avatar" aria-hidden="true" src="\assets\images\LOGO_IMPULSOCORE.jpeg" alt="ImpulsoCore logo" />
+
+      <div class="chats" aria-label="Conversas recentes">
+        <div class="chat-item active">
+          <img class="avatar" src="assets/images/logo_sem_fundo.png" alt="Logo ImpulsoCore" />
           <div>
-            <div class="title"><span class="name">ImpulsoCore</span></div>
-            <div class="preview">Feito. Você pode alterar avatar, nome e imagem de fundo direto no HTML/CSS.</div>
+            <div class="title">
+              <span class="name">ImpulsoCore</span>
+              <span class="pill" style="padding:2px 6px;font-size:10px">IA</span>
+            </div>
+            <p class="preview">Iniciando conversa…</p>
           </div>
-          <div class="time">13:22</div>
+          <span class="time">--:--</span>
+        </div>
+        <div class="chat-item">
+          <img class="avatar" src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=200&q=60" alt="Contato fictício" />
+          <div>
+            <div class="title"><span class="name">Lead Escola</span></div>
+            <p class="preview">"Vocês integram com BI?"</p>
+          </div>
+          <span class="time">Ontem</span>
+        </div>
+        <div class="chat-item">
+          <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=60" alt="Contato fictício" />
+          <div>
+            <div class="title"><span class="name">Equipe Financeiro</span></div>
+            <p class="preview">Reunião às 15h</p>
+          </div>
+          <span class="time">09:10</span>
         </div>
       </div>
     </aside>
 
-    <main class="chat" aria-label="Área de conversa">
+    <main class="chat">
       <header class="chat__header">
-        <img class="avatar" aria-hidden="true" src="\assets\images\LOGO_IMPULSOCORE.jpeg" alt="ImpulsoCore logo" />
+        <img class="avatar" src="assets/images/logo_sem_fundo.png" alt="ImpulsoCore" />
         <div class="chat__contact">
-          <div class="chat__name">ImpulsoCore</div>
-          <div class="chat__status" id="status">online</div>
-        </div>
-        <div style="margin-left:auto;display:flex;gap:10px">
-          <button class="icon-btn" title="Pesquisar na conversa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 3a7 7 0 1 0 4.2 12.6l4.6 4.6 1.4-1.4-4.6-4.6A7 7 0 0 0 10 3Zm0 2a5 5 0 1 1 0 10A5 5 0 0 1 10 5Z"/></svg></button>
-          <button class="icon-btn" title="Anexar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12.5V7a5 5 0 0 1 10 0v7a3.5 3.5 0 0 1-7 0V8h2v6a1.5 1.5 0 0 0 3 0V7a3 3 0 0 0-6 0v5.5a5.5 5.5 0 1 0 11 0V8h2v4.5a7.5 7.5 0 1 1-15 0Z"/></svg></button>
-          <button class="icon-btn" title="Mais"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg></button>
+          <span class="chat__name">ImpulsoCore</span>
+          <span class="chat__status">online agora</span>
         </div>
       </header>
 
-      <section class="messages" id="messages" aria-live="polite">
-        <div class="msg in">Olá! 👋 Sou o assistente da <strong>ImpulsoCore</strong>.<br/>Que tipo de solução você precisa hoje?<span class="meta"><span>13:20</span></span></div>
-        <div class="msg out">Quero simular uma conversa no site, igual ao WhatsApp.<span class="meta"><span>13:21</span><span class="checks"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16 3.5 10.5l1.4-1.4L9 13.7l9.7-9.7 1.4 1.4z"/><path d="M20.6 7.6 22 9l-9 9-4.6-4.6 1.4-1.4 3.2 3.2z"/></svg></span></span></div>
-        <div class="msg in">Perfeito! Posso ajudar com um <em>front-end</em> pronto para incorporar. 😉<span class="meta"><span>13:21</span></span></div>
-        <div class="msg out">Quero iniciar com um contato chamado <strong>ImpulsoCore</strong> e fundo com foto.<span class="meta"><span>13:22</span><span class="checks"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16 3.5 10.5l1.4-1.4L9 13.7l9.7-9.7 1.4 1.4z"/><path d="M20.6 7.6 22 9l-9 9-4.6-4.6 1.4-1.4 3.2 3.2z"/></svg></span></span></div>
-        <div class="msg in">Feito. Você pode alterar avatar, nome e imagem de fundo direto no HTML/CSS.<span class="meta"><span>13:22</span></span></div>
-      </section>
+      <section class="messages" id="messages" aria-live="polite"></section>
 
       <div class="composer">
         <button title="Emoji"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm-3 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm9 5a5 5 0 0 1-8 0h8Zm-3-3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></svg></button>
         <button title="Anexar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 12.5V7a5 5 0 0 1 10 0v7a3.5 3.5 0 0 1-7 0V8h2v6a1.5 1.5 0 0 0 3 0V7a3 3 0 0 0-6 0v5.5a5.5 5.5 0 1 0 11 0V8h2v4.5a7.5 7.5 0 1 1-15 0Z"/></svg></button>
         <div class="field">
-          <input id="input" type="text" placeholder="Digite uma mensagem" autocomplete="off" />
+          <input id="input" type="text" placeholder="Digite sua mensagem" autocomplete="off" aria-label="Mensagem" />
         </div>
-        <button class="send" id="sendBtn" title="Enviar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.6 22 12 3.4 3.4 3 10l12 2-12 2 .4 6.6Z"/></svg></button>
+        <button class="send" id="sendBtn" title="Enviar mensagem"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.6 22 12 3.4 3.4 3 10l12 2-12 2 .4 6.6Z"/></svg></button>
       </div>
     </main>
   </div>
 
   <script>
-    const input = document.getElementById('input');
-    const messages = document.getElementById('messages');
-    const sendBtn = document.getElementById('sendBtn');
-    const previewEl = document.querySelector('.chat-item.active .preview');
-    const timeEl = document.querySelector('.chat-item.active .time');
+    (function(){
+      const API_URL = 'https://api.deepseek.com/chat/completions';
+      const API_KEY = 'sk-2083c13ca2984e55a7a927272edba10f';
+      const MODEL = 'deepseek-chat';
+      const MAX_HISTORY = 20;
 
-    function updatePreview(){
-      const lastMsg = messages.lastElementChild;
-      if(!lastMsg) return;
-      const clone = lastMsg.cloneNode(true);
-      clone.querySelector('.meta')?.remove();
-      previewEl.innerHTML = clone.innerHTML;
-      const t = lastMsg.querySelector('.meta span')?.textContent;
-      if(t) timeEl.textContent = t;
-    }
+      const input = document.getElementById('input');
+      const messages = document.getElementById('messages');
+      const sendBtn = document.getElementById('sendBtn');
+      const previewEl = document.querySelector('.chat-item.active .preview');
+      const timeEl = document.querySelector('.chat-item.active .time');
 
-    function appendMsg(text, type='out'){
-      const el = document.createElement('div');
-      el.className = `msg ${type}`;
-      el.innerHTML = `${escapeHTML(text)}<span class="meta"><span>${now()}</span>${type==='out' ? '<span class="checks"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16 3.5 10.5l1.4-1.4L9 13.7l9.7-9.7 1.4 1.4z"/><path d="M20.6 7.6 22 9l-9 9-4.6-4.6 1.4-1.4 3.2 3.2z"/></svg></span>' : ''}</span>`;
-      messages.appendChild(el);
-      messages.scrollTop = messages.scrollHeight;
-      updatePreview();
-    }
+      const history = [{
+        role:'system',
+        content:'Você é o especialista ImpulsoCore IA. Responda sempre em português do Brasil, com tom consultivo e objetivo, recomendando o melhor módulo (WhatsApp, CRM ou Cobrança) e convidando para uma demonstração quando fizer sentido.'
+      }];
 
-    function botReply(){
-      const replies = [
-        'Entendi. Precisa que o chat responda automaticamente no seu site?',
-        'Consigo personalizar nome, avatar, fundo e mensagens.',
-        'Quer que eu gere um HTML com apenas o contato ImpulsoCore?'
-      ];
-      const pick = replies[Math.floor(Math.random()*replies.length)];
-      appendMsg(pick, 'in');
-    }
+      const initialMessage = 'Olá! Sou a IA da ImpulsoCore. Conte o cenário do seu atendimento, vendas ou cobrança e mostro como podemos ajudar.';
 
-    function now(){
-      const d = new Date();
-      return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
-    }
+      const CHECKS_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16 3.5 10.5l1.4-1.4L9 13.7l9.7-9.7 1.4 1.4z"/><path d="M20.6 7.6 22 9l-9 9-4.6-4.6 1.4-1.4 3.2 3.2z"/></svg>';
 
-    function escapeHTML(str){
-      return str.replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[s]));
-    }
+      let typingEl = null;
+      let pendingReply = false;
 
-    function send(){
-      const t = input.value.trim();
-      if(!t) return;
-      appendMsg(t, 'out');
-      input.value = '';
-      setTimeout(botReply, 700);
-    }
+      appendMsg(initialMessage, 'in');
 
-    sendBtn.addEventListener('click', send);
-    input.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }});
-    updatePreview();
+      sendBtn.addEventListener('click', sendMessage);
+      input.addEventListener('keydown', handleEnter);
+
+      function sendMessage(){
+        if(pendingReply) return;
+        const text = input.value.trim();
+        if(!text) return;
+        appendMsg(text, 'out');
+        input.value = '';
+        input.focus();
+        requestAI();
+      }
+
+      async function requestAI(){
+        pendingReply = true;
+        setSending(true);
+        showTyping();
+        try{
+          const payload = { model: MODEL, messages: history.slice(-MAX_HISTORY) };
+          const response = await fetch(API_URL, {
+            method:'POST',
+            headers:{
+              'Content-Type':'application/json',
+              'Authorization':`Bearer ${API_KEY}`
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if(!response.ok){
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const data = await response.json();
+          const reply = data?.choices?.[0]?.message?.content?.trim() || 'Tem algum detalhe a mais sobre o volume de mensagens ou integrações que você precisa?';
+          hideTyping();
+          appendMsg(reply, 'in');
+        } catch(err){
+          console.error('DeepSeek error', err);
+          hideTyping();
+          appendMsg('Desculpe, tive um problema para falar com nossa IA agora. Pode tentar novamente em instantes?', 'in', false);
+        } finally{
+          pendingReply = false;
+          setSending(false);
+        }
+      }
+
+      function appendMsg(text, type='out', track=true){
+        if(!text) return null;
+        const el = document.createElement('div');
+        el.className = `msg ${type}`;
+        el.innerHTML = `${formatText(text)}${metaTemplate(type)}`;
+        messages.appendChild(el);
+        messages.scrollTop = messages.scrollHeight;
+        updatePreviewFromLast();
+        if(track){
+          pushHistory(type === 'out' ? 'user' : 'assistant', text);
+        }
+        return el;
+      }
+
+      function pushHistory(role, content){
+        history.push({role, content});
+        if(history.length > MAX_HISTORY){
+          history.splice(1, history.length - MAX_HISTORY);
+        }
+      }
+
+      function metaTemplate(type){
+        const time = now();
+        if(type === 'out'){
+          return `<span class="meta"><span>${time}</span><span class="checks">${CHECKS_ICON}</span></span>`;
+        }
+        return `<span class="meta"><span>${time}</span></span>`;
+      }
+
+      function showTyping(){
+        if(typingEl) return;
+        typingEl = document.createElement('div');
+        typingEl.className = 'msg in typing';
+        typingEl.innerHTML = '<div class="typing-dots" aria-label="ImpulsoCore está digitando"><span></span><span></span><span></span></div>';
+        messages.appendChild(typingEl);
+        messages.scrollTop = messages.scrollHeight;
+        setPreviewTyping();
+      }
+
+      function hideTyping(){
+        if(typingEl){
+          typingEl.remove();
+          typingEl = null;
+        }
+        updatePreviewFromLast();
+      }
+
+      function setPreviewTyping(){
+        if(!previewEl || !timeEl) return;
+        previewEl.textContent = 'ImpulsoCore está digitando...';
+        timeEl.textContent = now();
+      }
+
+      function updatePreviewFromLast(){
+        if(!previewEl || !timeEl) return;
+        const nodes = messages.querySelectorAll('.msg:not(.typing)');
+        const last = nodes[nodes.length - 1];
+        if(!last) return;
+        const clone = last.cloneNode(true);
+        clone.querySelector('.meta')?.remove();
+        const previewText = summarizePreviewText(clone.textContent || '');
+        previewEl.textContent = previewText;
+        const time = last.querySelector('.meta span')?.textContent;
+        if(time) timeEl.textContent = time;
+      }
+
+
+      function handleEnter(e){
+        if(e.key === 'Enter' && !e.shiftKey){
+          e.preventDefault();
+          sendMessage();
+        }
+      }
+
+      function setSending(state){
+        sendBtn.disabled = state;
+        sendBtn.setAttribute('aria-busy', state ? 'true' : 'false');
+      }
+
+      function summarizePreviewText(text=''){
+        const clean = text.replace(/\s+/g,' ').trim();
+        if(!clean) return 'Nova mensagem';
+        return clean.length > 140 ? `${clean.slice(0,137)}...` : clean;
+      }
+
+      function formatText(text=''){
+        return renderBasicMarkdown(escapeHTML(text)).replace(/\n/g,'<br>');
+      }
+
+      function renderBasicMarkdown(str=''){
+        if(!str) return '';
+        let html = str;
+        html = html.replace(/(\*\*|__)(.+?)\1/g,'<strong>$2</strong>');
+        html = html.replace(/(\*|_)([^*_]+?)\1/g,'<em>$2</em>');
+        return html;
+      }
+
+      function escapeHTML(str=''){
+        return str.replace(/[&<>"']/g, s => ({
+          '&':'&amp;',
+          '<':'&lt;',
+          '>':'&gt;',
+          '"':'&quot;',
+          "'":'&#39;'
+        })[s] || s);
+      }
+
+      function now(){
+        const d = new Date();
+        return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      }
+    })();
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
